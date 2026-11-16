@@ -1,2 +1,8 @@
 import { defineConfig } from "vitest/config";
-export default defineConfig({ test: { include: ["src/**/*.test.ts"] } });
+
+export default defineConfig({
+  base: "/MOBA_Farming_Lab_3821/",
+  test: {
+    include: ["src/**/*.test.ts"],
+  },
+});
