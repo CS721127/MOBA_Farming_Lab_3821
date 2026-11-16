@@ -1,0 +1,12 @@
+import {it,expect} from 'vitest';
+import {addVertex,blankGraph,connect,finishGraph,removeVertex} from './editorModel';
+import {solve,validate} from './engine';
+it('draw vertices, start and edges; execute an exact path',()=>{let s=blankGraph();s=addVertex(s,120,150,4);s=addVertex(s,720,400,7);s=connect(s,'v1','v2',2);s=connect(s,'v2','v3',3);s.startId='v2';s.budget=5;s=finishGraph(s);expect(s.topology).toBe('PATH');expect(solve(s,'path').evaluation?.totalReward).toBe(solve(s,'hk').evaluation?.totalReward);expect(solve(s,'hk').evaluation?.isValid).toBe(true);});
+it('blocks duplicate/self edges; deletes incident edges and repairs start',()=>{let s=addVertex(blankGraph(),10,10,5);s=connect(s,'v1','v2',0);expect(connect(s,'v2','v1',3)).toBe(s);expect(connect(s,'v1','v1',3)).toBe(s);s=removeVertex(s,'v1');expect(s.startId).toBe('v2');expect(s.edges).toHaveLength(0);expect(validate(s)).toEqual([]);expect(removeVertex(s,'v2')).toBe(s);});
+it('detects a cycle and rejects invalid costs',()=>{let s=addVertex(addVertex(blankGraph(),100,100,2),700,300,3);s=connect(connect(connect(s,'v1','v2',1),'v2','v3',1),'v3','v1',1);expect(finishGraph(s).topology).toBe('GENERAL');expect(solve(s,'path').status).toBe('unsupported');s.edges[0].cost=-1;expect(()=>finishGraph(s)).toThrow();});
+
+import {lane,generateMap} from './scenarios';
+it('lane showcases preserve the exact mathematical instance',()=>{for(const which of ['top','mid','bot'] as const){const s=lane(which);expect(solve(s,'path').evaluation?.totalReward).toBe(21);expect(solve(s,'hk').evaluation?.travelCost).toBe(10);}});
+it('generation is reproducible and connectivity controls have effect',()=>{expect(generateMap(12,3821,'GENERAL')).toEqual(generateMap(12,3821,'GENERAL'));expect(generateMap(8,5,'GENERAL',0,false).edges).toHaveLength(0);expect(generateMap(8,5,'GENERAL',0,true).edges).toHaveLength(7);expect(validate(generateMap(8,5,'PATH'))).toEqual([]);});
+
+it('large generated graphs fit the map with separated interior nodes',()=>{for(const topology of ['GENERAL','PATH'] as const){const s=generateMap(100,3821,topology);for(const v of s.vertices){expect(v.x).toBeGreaterThan(30);expect(v.x).toBeLessThan(870);expect(v.y).toBeGreaterThan(30);expect(v.y).toBeLessThan(570);for(const w of s.vertices)if(v.id!==w.id)expect(Math.hypot(v.x-w.x,v.y-w.y)).toBeGreaterThan(35);}expect(s.vertices.some(v=>v.x>300&&v.x<600&&v.y>200&&v.y<420)).toBe(true);}});

@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
+:root {
+  --river: #101f29;
+  --forest: #172d2b;
+  --brass: #d6b578;
+  --parchment: #f1e8d5;
+  --cyan: #88d6d5;
+  --line: #435654;
+  --gold: var(--brass);
+  --mint: var(--cyan);
+  --muted: #b3c4c0;
+  --panel: #192a30;
+  --body-font: 'Source Sans 3', 'Segoe UI', sans-serif;
+  --display-font: 'Cinzel', Georgia, serif;
+  color: var(--parchment);
+  background: var(--river);
+  font-family: var(--body-font);
+}
+.app { --gutter: clamp(16px, 4vw, 64px); }
+.app > header { height: 64px; padding-inline: max(var(--gutter), calc((100vw - 1450px)/2)); background: #132329; }
+.app > main { max-width: none; width: min(calc(100% - 2 * var(--gutter)), 1450px); padding: 0; }
+.app > header nav { gap: 22px; }
+.app > header nav button, .app > header .help { font: 600 15px var(--body-font); }
+.brand { font: 700 19px var(--display-font); letter-spacing: 0; gap: 10px; }
+.brandmark { transform: none; border: 0; border-radius: 0; width: 28px; height: 32px; }
+.brandmark svg { transform: none; }
+.app h1, .app h2 { font-family: var(--display-font); letter-spacing: 0; }
+.app :is(button,input,select,textarea) { font-family: var(--body-font); }
+.app :is(button,a,select,input,summary):focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.workspace-tools { align-items: end; gap: 12px; padding: 18px 0 16px; }
+.workspace-tools label { gap: 4px; color: var(--muted); font-size: 14px; }
+.workspace-tools select, .workspace-tools input[type=number] { height: 38px; background: var(--panel); border-color: var(--line); }
+.workspace-tools .primary, .workspace-tools .secondary { height: 38px; }
+.workspace-tools label:has(input[type=range]) { grid-template-columns: minmax(70px, 110px) 30px; row-gap: 3px; }
+.workspace-tools output { font-size: 13px; }
+.workspace-tools .inline-check { padding-bottom: 7px; }
+.scenario-bar { min-height: 66px; gap: 16px; padding: 10px 16px; background: var(--panel); border-radius: 3px 3px 0 0; }
+.scenario-bar label, .hud small, .route-outcome small { letter-spacing: 0; text-transform: none; color: var(--muted); }
+.scenario-bar select { max-width: 100%; }
+.arena { grid-template-columns: minmax(0, 1fr) minmax(290px, 27%); border-radius: 0 0 3px 3px; }
+.map-panel { background: var(--forest); }
+.map-panel .map-top { display: none; }
+.map-wrap .world { min-height: 0; }
+.hud { border-top: 1px solid var(--line); background: #1a302c; }
+.hud small { font: 600 14px var(--body-font); }
+.hud strong { font: 600 26px var(--body-font); }
+.map-footer, .node-access summary, .hero-picker button { font-size: 14px; }
+.map-footer { min-height: 48px; }
+.hero-picker > span { font: 600 13px var(--body-font); letter-spacing: 0; }
+.strategy-panel { padding: 17px 18px; background: var(--panel); min-width: 0; }
+.strategy-panel h2 { font-size: 19px; margin: 0 0 8px; }
+.strategies { gap: 0; border-bottom: 1px solid var(--line); }
+.strategy { min-height: 49px; padding: 7px 9px; border: 0; border-top: 1px solid var(--line); border-left: 2px solid transparent; border-radius: 0; background: transparent; }
+.strategy.selected { border-left-color: var(--brass); background: #293933; }
+.strategy strong { font-size: 16px; font-weight: 700; color: var(--parchment); }
+.strategy small { line-height: 1.25; margin-top: 2px; color: var(--muted); }
+.strategy:disabled { opacity: .56; }
+.method-explanation { padding: 0; margin: 8px 0 13px; border: 0; }
+.method-explanation p { margin: 0 0 2px; line-height: 1.4; }
+.method-explanation button { font-size: 14px; }
+.disabled-note { margin: 7px 0; }
+.run { min-height: 42px; border-radius: 3px; }
+.playback { margin-top: 8px; }
+.travel-narration { margin-top: 10px; padding: 7px 10px; background: #13252d; }
+.travel-narration p { margin-top: 1px; line-height: 1.35; }
+.route-outcome { margin-top: 9px; }
+.route-outcome b { font-family: var(--body-font); }
+.comparison, .trace-section { background: var(--panel); border-radius: 3px; }
+.trace-help p { margin: 4px 0 0; }
+.experiments { display: block; margin-top: 32px; scroll-margin-top: 16px; }
+.experiments > h2 { margin: 0 0 10px; font-size: 26px; }
+.experiments article { border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 16px 0; background: transparent; }
+.experiments article h2 { margin: 0; font-family: var(--body-font); color: var(--parchment); font-weight: 600; font-size: 20px; }
+.experiments article p { max-width: 72ch; margin: 5px 0 10px; }
+.experiments article .section-head { margin-bottom: 0; }
+.experiments :is(.bar-chart,.benchmark-charts) { margin-top: 12px; }
+.app footer { justify-content: flex-end; font-size: 14px; }
+.paper-reader { padding-top: 28px; }
+@media (max-width: 860px) {
+  .arena { grid-template-columns: minmax(0, 1fr); }
+  .strategy-panel { border-left: 0; border-top: 1px solid var(--line); }
+}
+@media (max-width: 600px) {
+  .app > header { height: auto; min-height: 60px; flex-wrap: wrap; padding-block: 8px; gap: 2px 12px; }
+  .app > header nav { order: 3; width: 100%; height: 34px; }
+  .brand { font-size: 15px; }
+  .app > header .help { font-size: 13px; }
+  .workspace-tools { gap: 9px; }
+  .workspace-tools select { max-width: 130px; }
+  .workspace-tools input[type=number] { width: 65px; }
+  .scenario-bar { gap: 8px; padding: 10px; }
+  .hud { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hud strong { font-size: 21px; }
+  .map-legend { display: none; }
+  .map-wrap .hero-picker { position: static; background: #182e2b; justify-content: flex-end; padding: 5px 8px; line-height: 1.4; }
+  .strategy-panel { padding: 14px; }
+  .experiments .section-head { align-items: flex-start; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app *, .app *::before, .app *::after { scroll-behavior: auto; transition: none; }
+}
+.experiments article h3 {
+  margin: 0;
+  font: 600 20px var(--body-font);
+  color: var(--parchment);
+}
+.experiments article > label { width: min(100%, 540px); }
+.app footer > a { font-size: 14px; }
+.comparison th { font: 600 14px var(--body-font); letter-spacing: 0; text-transform: none; }
+.trace-section summary, .route-outcome small, .playback > span { font-size: 13px; }
+@media (max-width: 600px) {
+  .app > header nav { justify-content: flex-start; }
+  .scenario-bar .segmented, .scenario-bar .preset-label { margin: 0; }
+  .scenario-bar .preset-label { flex-basis: 100%; }
+  .scenario-bar .preset-label select { width: 100%; }
+  .scenario-bar .budget-label { margin: 0; }
+  .scenario-bar .iconbtn { margin-left: auto; }
+}
